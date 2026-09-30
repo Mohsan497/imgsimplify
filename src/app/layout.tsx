@@ -6,6 +6,7 @@ import { SITE } from "@/constants/site";
 import Providers from "@/components/layout/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -18,7 +19,9 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.name }],
   creator: SITE.name,
   publisher: SITE.name,
-  verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
+  },
   robots: {
     index: true,
     follow: true,
@@ -56,13 +59,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${fontSans.variable} ${fontDisplay.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${fontSans.variable} ${fontDisplay.variable}`}
+    >
       <body>
         <Providers>
           <Header />
           <main>{children}</main>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
