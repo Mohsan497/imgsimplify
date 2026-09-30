@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   THEME — change colors here once, every page updates.
+   Values are "R G B" triplets.
+   ============================================================ */
+@layer base {
+  :root {
+    --background: 250 250 250;
+    --foreground: 9 9 11;
+    --card: 255 255 255;
+    --surface: 244 244 245;
+    --border: 228 228 231;
+    --muted: 82 82 91;
+    --primary: 16 185 129;          /* brand teal-green */
+    --primary-foreground: 255 255 255;
+    --accent: 6 182 212;            /* gradient partner */
+    --inverse: 9 32 30;             /* dark sections (privacy / footer) */
+  }
+  .dark {
+    --background: 9 9 11;
+    --foreground: 250 250 250;
+    --card: 20 20 23;
+    --surface: 28 28 32;
+    --border: 39 39 42;
+    --muted: 161 161 170;
+    --primary: 52 211 153;
+    --primary-foreground: 5 30 22;
+    --accent: 34 211 238;
+    --inverse: 12 26 25;
+  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3, h4 { @apply font-display tracking-tight; }
+}
+
+@layer utilities {
+  .text-gradient {
+    background-image: linear-gradient(90deg, rgb(var(--primary)), rgb(var(--accent)));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .bg-brand-gradient { background-image: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--accent))); }
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--border) / 0.7) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--border) / 0.7) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 72%);
+    mask-image: radial-gradient(ellipse at center, #000 25%, transparent 72%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
