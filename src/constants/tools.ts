@@ -88,6 +88,21 @@ export const TOOLS: Tool[] = [
       ...commonFaqs,
     ],
   },
+    {
+    slug: "avif-to-jpg", title: "AVIF → JPG", description: "Convert AVIF images to JPG.", mode: "convert", target: "image/jpeg",
+    icon: ArrowLeftRight, color: "bg-fuchsia-500/10 text-fuchsia-500",
+    intro: "Convert AVIF images to JPG when an app, upload form or device does not open AVIF files.",
+    seoTitle: "AVIF to JPG Converter Online Free",
+    metaDescription: "Convert AVIF to JPG online for free. Choose quality, preview the result and download a JPG in your browser without uploading your image.",
+    howTo: ["Upload the AVIF image.", "Choose the JPG quality.", "Download the converted JPG."],
+    bestFor: "Images saved from websites as AVIF that need to open in older software, print services or upload forms.",
+    tips: ["Your browser must be able to open AVIF for the file to load; current versions of Chrome, Edge, Firefox and Safari can.", "Transparent areas become white because JPG has no transparency.", "Keep the original AVIF if you may need its smaller file size later."],
+    faqs: [
+      { q: "Why won't my AVIF file open?", a: "AVIF is a newer format and many older editors, email clients and upload forms do not support it yet. Converting to JPG makes it work almost everywhere." },
+      { q: "Will the JPG be larger than the AVIF?", a: "Usually yes, because AVIF compresses very efficiently. Lower the quality slider if you need a smaller file." },
+      ...commonFaqs,
+    ],
+  },
   {
     slug: "webp-to-jpg", title: "WebP → JPG", description: "Convert WebP images to JPG.", mode: "convert", target: "image/jpeg",
     icon: ArrowLeftRight, color: "bg-violet-500/10 text-violet-500",
@@ -100,6 +115,21 @@ export const TOOLS: Tool[] = [
     faqs: [
       { q: "Does JPG support transparency?", a: "No. Any transparent area in the WebP is rendered with a white background in the JPG." },
       { q: "Why is my JPG larger than the WebP?", a: "WebP can achieve smaller files than JPG at comparable visual quality, so a larger JPG is normal." },
+      ...commonFaqs,
+    ],
+  },
+    {
+    slug: "webp-to-png", title: "WebP → PNG", description: "Convert WebP images to PNG.", mode: "convert", target: "image/png",
+    icon: ArrowLeftRight, color: "bg-lime-500/10 text-lime-600",
+    intro: "Convert WebP images to PNG and keep transparent backgrounds, directly in your browser.",
+    seoTitle: "WebP to PNG Converter Online Free",
+    metaDescription: "Convert WebP to PNG online for free. Keep transparency, preview the result and download a PNG without uploading your image.",
+    howTo: ["Upload the WebP image.", "Wait while the browser converts it to PNG.", "Download the converted PNG file."],
+    bestFor: "Editing software that does not open WebP, and images where a transparent background must be kept.",
+    tips: ["PNG keeps transparent areas, unlike JPG.", "PNG files are usually larger than WebP because they use lossless compression.", "Keep the original WebP if you need the smaller file for a website."],
+    faqs: [
+      { q: "Is transparency kept when converting WebP to PNG?", a: "Yes. PNG supports transparency, so transparent areas of the WebP stay transparent." },
+      { q: "Why is the PNG larger than the WebP?", a: "PNG uses lossless compression, which is usually less efficient than WebP for photographs, so a bigger file is normal." },
       ...commonFaqs,
     ],
   },

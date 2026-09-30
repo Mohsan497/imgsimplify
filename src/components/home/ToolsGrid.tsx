@@ -9,7 +9,7 @@ export default function ToolsGrid() {
     <section className="py-16">
       <Container>
         <SectionHeading title={POPULAR_TOOLS.title} subtitle={POPULAR_TOOLS.subtitle} cta={{ label: POPULAR_TOOLS.cta, href: "/tools" }} />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TOOLS.map((t) => <ToolCard key={t.slug} tool={t} />)}
         </div>
       </Container>
