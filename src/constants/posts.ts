@@ -71,7 +71,7 @@ export const POSTS: Post[] = [
     title: "How to Convert PNG to JPG (and When You Should Not)",
     description:
       "Need a smaller file or a format every app accepts? Learn how to convert PNG to JPG, what happens to transparency, and which quality to choose.",
-    date: "2026-09-30",
+    date: "2026-09-25",
     category: "Converting",
     toolSlug: "png-to-jpg",
     blocks: [
@@ -116,7 +116,7 @@ export const POSTS: Post[] = [
     title: "What Is Photo Metadata (EXIF) and How to Remove It Before Sharing",
     description:
       "Photos can carry hidden details like location and camera model. Learn what EXIF metadata is, how to check it, and how to remove it before you share.",
-    date: "2026-09-30",
+    date: "2026-09-15",
     category: "Privacy",
     toolSlug: "compress-image",
     blocks: [
@@ -162,7 +162,7 @@ export const POSTS: Post[] = [
     title: "How to Convert Base64 to an Image (and Fix Broken Data URLs)",
     description:
       "Got a long Base64 string from an API or stylesheet? Learn how to decode it into a picture, and how to fix the most common Base64 image errors.",
-    date: "2026-09-30",
+    date: "2026-09-10",
     category: "Developers",
     toolSlug: "base64-to-image",
     blocks: [
@@ -203,7 +203,7 @@ export const POSTS: Post[] = [
     title: "How to Prepare Product Photos for Your Online Store",
     description:
       "Better product photos sell more and load faster. Learn the right sizes, backgrounds, formats and file sizes for shop and marketplace listings.",
-    date: "2026-09-30",
+    date: "2026-09-05",
     category: "E-commerce",
     toolSlug: "resize-image",
     blocks: [
@@ -243,7 +243,7 @@ export const POSTS: Post[] = [
     title: "How to Compress an Image to 100KB (or 50KB) Without Ruining It",
     description:
       "Need a photo under 100KB or 50KB for a form or upload? Learn the size and quality tricks that work, and how to do it free in your browser.",
-    date: "2026-09-29",
+    date: "2026-08-28",
     category: "Compression",
     toolSlug: "compress-image",
     blocks: [
@@ -291,7 +291,7 @@ export const POSTS: Post[] = [
     title: "What Is AVIF? AVIF vs JPG vs WebP Explained",
     description:
       "AVIF makes images much smaller, but not every app opens it. Learn what AVIF is, how it compares with JPG and WebP, and how to convert AVIF to JPG.",
-    date: "2026-09-29",
+    date: "2026-08-21",
     category: "Formats",
     toolSlug: "avif-to-jpg",
     blocks: [
@@ -329,7 +329,7 @@ export const POSTS: Post[] = [
     title: "How to Resize an Image Without Losing Quality",
     description:
       "Learn how to resize photos to exact pixel sizes without blur or stretching. Simple rules, recommended sizes and a free browser-based resizer.",
-    date: "2026-09-29",
+    date: "2026-08-14",
     category: "Resizing",
     toolSlug: "resize-image",
     blocks: [
@@ -377,7 +377,7 @@ export const POSTS: Post[] = [
     title: "Why Your Website Images Are Slow (and How to Fix Them)",
     description:
       "Heavy images are one of the top reasons pages load slowly. Learn how to find them and fix them with resizing, WebP, compression and lazy loading.",
-    date: "2026-09-29",
+    date: "2026-08-9",
     category: "Performance",
     toolSlug: "jpg-to-webp",
     blocks: [
@@ -416,7 +416,7 @@ export const POSTS: Post[] = [
     title: "Image Aspect Ratios Explained: 1:1, 4:3, 16:9 and 9:16",
     description:
       "Learn what aspect ratios like 1:1, 4:3, 16:9 and 9:16 mean, where to use each one, and how to crop an image to fit without stretching it.",
-    date: "2026-09-29",
+    date: "2026-08-01",
     category: "Cropping",
     toolSlug: "crop-image",
     blocks: [
@@ -466,7 +466,7 @@ export const POSTS: Post[] = [
     title: "JPG vs PNG vs WebP: Which Image Format Should You Use?",
     description:
       "Compare JPG, PNG and WebP by quality, file size, transparency and browser support, and learn which image format is best for photos, logos and websites.",
-    date: "2026-09-28",
+    date: "2026-07-25",
     category: "Formats",
     toolSlug: "jpg-to-webp",
     blocks: [
@@ -493,7 +493,7 @@ export const POSTS: Post[] = [
     title: "How to Compress Images Without Losing Quality",
     description:
       "Learn how to compress JPG, PNG and WebP images online for free. Simple steps to reduce file size while keeping photos sharp, without uploading anything.",
-    date: "2026-09-21",
+    date: "2026-07-17",
     category: "Compression",
     toolSlug: "compress-image",
     blocks: [
@@ -520,7 +520,7 @@ export const POSTS: Post[] = [
     title: "How to Convert WebP to JPG (and When You Should)",
     description:
       "Need a JPG instead of WebP? Learn why WebP images fail to open in some apps, when to convert WebP to JPG, and how to do it free in your browser.",
-    date: "2026-09-14",
+    date: "2026-07-11",
     category: "Converting",
     toolSlug: "webp-to-jpg",
     blocks: [
@@ -550,7 +550,7 @@ export const POSTS: Post[] = [
     title: "Image to Base64: What It Is and When to Use It",
     description:
       "Learn what Base64 image encoding is, how much it increases file size, and when to embed images as data URLs in HTML, CSS or JSON.",
-    date: "2026-09-07",
+    date: "2026-07-06",
     category: "Developers",
     toolSlug: "image-to-base64",
     blocks: [
