@@ -12,7 +12,8 @@ interface Props {
   className?: string;
 }
 
-const accept = SUPPORTED_INPUT_TYPES.join(",");
+// Extensions are included too, because some systems do not map .avif to a MIME type in the file picker.
+const accept = [...SUPPORTED_INPUT_TYPES, ".avif"].join(",");
 
 export default function Dropzone({ onFile, title, hint, className }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -64,7 +65,7 @@ export default function Dropzone({ onFile, title, hint, className }: Props) {
       <UploadCloud size={40} className="mb-3 text-primary" aria-hidden="true" />
       <p className="font-semibold">{title}</p>
       <p className="mt-1 text-xs text-muted">
-        {hint ?? "JPG, PNG, WebP or GIF"} · Max {MAX_FILE_BYTES / 1024 / 1024}MB
+        {hint ?? "JPG, PNG, WebP, GIF or AVIF"} · Max {MAX_FILE_BYTES / 1024 / 1024}MB
       </p>
       {error && (
         <p role="alert" className="mt-3 max-w-md text-sm font-medium text-red-500">

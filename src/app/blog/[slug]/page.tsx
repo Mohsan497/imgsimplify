@@ -6,9 +6,9 @@ import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PostCard from "@/components/blog/PostCard";
-import { POSTS, formatDate, getPost, readMinutes, type PostBlock } from "@/constants/posts";
+import { POSTS, formatDate, getPost, getRelatedPosts, readMinutes, type PostBlock } from "@/constants/posts";
 import { getTool } from "@/constants/tools";
-import { SITE } from "@/constants/site";
+import { AUTHOR, SITE } from "@/constants/site";
 
 type Props = { params: { slug: string } };
 
@@ -28,6 +28,7 @@ export function generateMetadata({ params }: Props): Metadata {
       siteName: SITE.name,
       type: "article",
       publishedTime: post.date,
+      modifiedTime: post.updated ?? post.date,
     },
   };
 }
@@ -59,10 +60,11 @@ export default function PostPage({ params }: Props) {
   const post = getPost(params.slug);
   if (!post) notFound();
   const tool = getTool(post.toolSlug);
-  const related = POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const related = getRelatedPosts(post, 3);
 
   const url = `${SITE.url}/blog/${post.slug}`;
   const publisher = { "@type": "Organization", name: SITE.name, url: SITE.url };
+  const author = { "@type": AUTHOR.type, name: AUTHOR.name, url: AUTHOR.url ?? SITE.url };
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -72,10 +74,10 @@ export default function PostPage({ params }: Props) {
         headline: post.title,
         description: post.description,
         datePublished: post.date,
-        dateModified: post.date,
+        dateModified: post.updated ?? post.date,
         inLanguage: "en",
         mainEntityOfPage: url,
-        author: publisher,
+        author,
         publisher,
       },
       {
@@ -112,6 +114,12 @@ export default function PostPage({ params }: Props) {
                 <CalendarDays size={15} className="text-primary" aria-hidden="true" />
                 <time dateTime={post.date}>{formatDate(post.date)}</time>
               </p>
+              {post.updated && post.updated !== post.date && (
+                <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-sm text-muted">
+                  <CalendarDays size={15} className="text-primary" aria-hidden="true" />
+                  Updated <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+                </p>
+              )}
               <p className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-sm text-muted">
                 <Clock size={15} className="text-primary" aria-hidden="true" />
                 {readMinutes(post)} min read

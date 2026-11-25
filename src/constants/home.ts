@@ -7,7 +7,7 @@ export const HERO = {
   titleHighlight: "Private. Free.",
   subtitle: "Compress, resize, convert and optimize your images all in one place. No signup required.",
   dropTitle: "Drop your image here or click to upload",
-  dropHint: "JPG, PNG, WebP, GIF",
+  dropHint: "JPG, PNG, WebP, GIF, AVIF",
   trust: "Your images never leave your device",
   checklist: ["Compress", "Resize", "Convert", "Crop", "More tools…"],
   beforeLabel: "JPG",

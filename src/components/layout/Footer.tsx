@@ -6,7 +6,7 @@ import { SITE } from "@/constants/site";
 import { TOOLS } from "@/constants/tools";
 import { POSTS } from "@/constants/posts";
 
-const FEATURED_TOOLS = ["compress-image", "resize-image", "jpg-to-png", "png-to-jpg", "webp-to-jpg", "jpg-to-webp"];
+const FEATURED_TOOLS = ["compress-image", "compress-image-to-50kb", "resize-image", "jpg-to-png", "png-to-jpg", "webp-to-jpg", "jpg-to-webp"];
 
 const COMPANY_LINKS = [
   { label: "About", href: "/about" },
@@ -24,7 +24,7 @@ export default function Footer() {
   const guides = POSTS.slice(0, 3);
 
   return (
-    <footer className="relative mt-24 overflow-hidden bg-inverse text-white">
+    <footer className="relative mt-14 overflow-hidden bg-inverse text-white">
       {/* Gradient edge and soft glows */}
       <div className="absolute inset-x-0 top-0 h-px bg-brand-gradient" aria-hidden="true" />
       <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-primary/15 blur-3xl" aria-hidden="true" />

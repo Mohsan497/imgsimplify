@@ -4,7 +4,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import ToolCard from "@/components/tools/ToolCard";
 import { TOOLS } from "@/constants/tools";
 
-const CONTACT_EMAIL = "hello@ImgSimplify.com";
+const CONTACT_EMAIL = "mohsantahir497@gmail.com";
 
 const COPY = {
   title: "Free online image tools",

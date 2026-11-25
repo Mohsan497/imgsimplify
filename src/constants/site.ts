@@ -5,6 +5,15 @@ const configuredUrl = explicitUrl || (vercelProd ? `https://${vercelProd}` : "")
 
 export const CONTACT_EMAIL = "mohsantahir497@gmail.com";
 
+/**
+ * Author used in article schema. For stronger E-E-A-T signals, switch type to "Person",
+ * use your real name and point url at your About page or LinkedIn profile.
+ */
+export const AUTHOR: { type: "Organization" | "Person"; name: string; url?: string } = {
+  type: "Organization",
+  name: "ImgSimplify",
+};
+
 export const SITE = {
   name: "ImgSimplify",
   tagline: "Simple image tools. Fast. Private. Free.",

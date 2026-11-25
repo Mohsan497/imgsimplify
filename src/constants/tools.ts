@@ -1,9 +1,15 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowLeftRight, Crop, FileCode2, FileImage, ImageDown, Maximize2 } from "lucide-react";
 import type { Faq } from "./faqs";
+import { EXTRA_TOOLS, TOOL_SECTIONS } from "./toolsExtra";
 
 export type ToolMode = "compress" | "resize" | "convert" | "crop" | "toBase64" | "fromBase64";
 export type ImageMime = "image/jpeg" | "image/png" | "image/webp";
+
+export interface ToolSection {
+  heading: string;
+  paragraphs: string[];
+}
 
 export interface Tool {
   slug: string;
@@ -20,6 +26,10 @@ export interface Tool {
   bestFor: string;
   tips: string[];
   faqs: Faq[];
+  /** Compress-mode landing pages only: default target size in KB. Shows a target-size input in the tool. */
+  targetKb?: number;
+  /** Optional long-form content shown under the tool (merged in from toolsExtra.ts). */
+  sections?: ToolSection[];
 }
 
 const commonFaqs: Faq[] = [
@@ -27,7 +37,7 @@ const commonFaqs: Faq[] = [
   { q: "Are my images uploaded?", a: "Image processing is performed in your browser. The image file is not sent to ImgSimplify's image-processing server." },
 ];
 
-export const TOOLS: Tool[] = [
+const BASE_TOOLS: Tool[] = [
   {
     slug: "compress-image", title: "Compress Image", description: "Reduce image size while keeping quality.", mode: "compress",
     icon: ImageDown, color: "bg-emerald-500/10 text-emerald-500",
@@ -209,6 +219,10 @@ export const TOOLS: Tool[] = [
     ],
   },
 ];
+
+export const TOOLS: Tool[] = [...BASE_TOOLS, ...EXTRA_TOOLS].map((t) =>
+  TOOL_SECTIONS[t.slug] ? { ...t, sections: TOOL_SECTIONS[t.slug] } : t
+);
 
 export const getTool = (slug: string) => TOOLS.find((t) => t.slug === slug);
 export const DEFAULT_UPLOAD_TOOL = "compress-image";

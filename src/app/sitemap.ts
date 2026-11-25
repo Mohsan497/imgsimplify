@@ -9,7 +9,7 @@ import {
 
 // Bump this date when you meaningfully change site content
 // (Google ignores lastmod that changes on every build).
-const SITE_UPDATED = new Date("2026-09-29");
+const SITE_UPDATED = new Date("2026-11-24");
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
@@ -32,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const posts = POSTS.map((post) => ({
     url: `${SITE.url}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.updated ?? post.date),
   }));
 
   const categoryPages = [

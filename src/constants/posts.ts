@@ -1,3 +1,5 @@
+import { NEW_POSTS, POST_EXPANSIONS } from "./postsExtra";
+
 export type PostBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
@@ -12,6 +14,8 @@ export interface Post {
   /** ISO date, e.g. "2026-09-28". */
   date: string;
   category: string;
+  /** ISO date of the last meaningful update. Used for dateModified in the article schema. */
+  updated?: string;
   /** Slug of the ImgSimplify tool this article links to (see constants/tools.ts). */
   toolSlug: string;
   blocks: PostBlock[];
@@ -27,7 +31,7 @@ export const BLOG = {
 };
 
 // Newest first. To add an article: add one object here, nothing else.
-export const POSTS: Post[] = [
+const BASE_POSTS: Post[] = [
   {
     slug: "image-seo-guide",
     title: "Image SEO: How to Optimize Images for Google Search",
@@ -245,7 +249,7 @@ export const POSTS: Post[] = [
       "Need a photo under 100KB or 50KB for a form or upload? Learn the size and quality tricks that work, and how to do it free in your browser.",
     date: "2026-08-28",
     category: "Compression",
-    toolSlug: "compress-image",
+    toolSlug: "compress-image-to-100kb",
     blocks: [
       { type: "p", text: "Job portals, government forms, exam registrations and online stores often refuse an upload because the photo is too big. The message is usually something like 'file must be under 100KB' or 'maximum size 50KB'. A modern phone photo is several megabytes, so you need to shrink it a lot. The good news is that with the right order of steps, you can hit these limits and still end up with a picture that looks perfectly fine." },
       { type: "h2", text: "Why upload forms ask for such small files" },
@@ -377,7 +381,7 @@ export const POSTS: Post[] = [
     title: "Why Your Website Images Are Slow (and How to Fix Them)",
     description:
       "Heavy images are one of the top reasons pages load slowly. Learn how to find them and fix them with resizing, WebP, compression and lazy loading.",
-    date: "2026-08-9",
+    date: "2026-08-09",
     category: "Performance",
     toolSlug: "jpg-to-webp",
     blocks: [
@@ -576,7 +580,26 @@ export const POSTS: Post[] = [
   },
 ];
 
+// New articles first, short articles get their extra sections, then newest first.
+export const POSTS: Post[] = [...NEW_POSTS, ...BASE_POSTS]
+  .map((p) => {
+    const extra = POST_EXPANSIONS[p.slug];
+    return extra ? { ...p, blocks: [...p.blocks, ...extra.blocks], updated: extra.updated } : p;
+  })
+  .sort((a, b) => b.date.localeCompare(a.date));
+
 export const getPost = (slug: string) => POSTS.find((p) => p.slug === slug);
+
+/** Same category first, then same tool, then newest. Never includes the post itself. */
+export const getRelatedPosts = (post: Post, limit = 3): Post[] => {
+  const score = (p: Post) =>
+    (p.category === post.category ? 2 : 0) + (p.toolSlug === post.toolSlug ? 1 : 0);
+  return POSTS.map((p, index) => ({ p, index, s: score(p) }))
+    .filter(({ p }) => p.slug !== post.slug)
+    .sort((a, b) => b.s - a.s || a.index - b.index)
+    .slice(0, limit)
+    .map(({ p }) => p);
+};
 
 const countWords = (p: Post) =>
   p.blocks

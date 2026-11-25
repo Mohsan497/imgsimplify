@@ -23,18 +23,20 @@ interface Result {
   type: string;
   w: number;
   h: number;
+  reached: boolean | null;
 }
 
 const card = "rounded-2xl border border-border bg-card p-5 shadow-soft";
 const input =
   "h-10 w-full rounded-lg border border-border bg-background px-3 text-sm focus:outline-none focus:shadow-glow";
 
-export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"> }) {
+export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target" | "targetKb"> }) {
   const [file, setFile] = useState<File | null>(null);
   const [src, setSrc] = useState("");
   const [dims, setDims] = useState({ w: 0, h: 0 });
   const [quality, setQuality] = useState(80);
-  const [format, setFormat] = useState<"auto" | ImageMime>("auto");
+  const [format, setFormat] = useState<"auto" | ImageMime>(tool.targetKb ? "image/jpeg" : "auto");
+  const [targetKb, setTargetKb] = useState(tool.targetKb ?? 0);
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
   const [lock, setLock] = useState(true);
@@ -107,6 +109,13 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
       setBusy(true);
       setError("");
 
+      if (tool.mode === "compress" && tool.targetKb !== undefined && targetKb < 5) {
+        setResult(null);
+        setBusy(false);
+        setError("Enter a target size of at least 5 KB.");
+        return;
+      }
+
       try {
         if (tool.mode === "toBase64") {
           const d = await fileToDataUrl(file);
@@ -123,6 +132,8 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
           width,
           height,
           aspect,
+          targetBytes:
+            tool.mode === "compress" && tool.targetKb !== undefined ? targetKb * 1000 : undefined,
         });
 
         if (cancelled) return;
@@ -135,6 +146,7 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
           type: r.type,
           w: r.width,
           h: r.height,
+          reached: r.reachedTarget,
         });
       } catch (e) {
         if (!cancelled) setError((e as Error).message);
@@ -147,7 +159,7 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
       cancelled = true;
       clearTimeout(t);
     };
-  }, [file, tool.mode, tool.target, quality, format, width, height, aspect]);
+  }, [file, tool.mode, tool.target, tool.targetKb, quality, format, width, height, aspect, targetKb]);
 
   const reset = () => {
     cleanupUrls();
@@ -169,7 +181,7 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
       <Dropzone
         onFile={onFile}
         title="Drop your image here or click to upload"
-        hint="JPG, PNG, WebP or GIF"
+        hint="JPG, PNG, WebP, GIF or AVIF"
         className="py-16"
       />
     );
@@ -177,8 +189,10 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
 
   const base = file.name.replace(/\.[^.]+$/, "");
   const saved = result ? Math.round((1 - result.blob.size / file.size) * 100) : 0;
+  const hasTargetSize = tool.mode === "compress" && tool.targetKb !== undefined;
   const showQuality =
-    tool.mode === "compress" || (tool.mode === "convert" && tool.target !== "image/png");
+    (tool.mode === "compress" && !hasTargetSize) ||
+    (tool.mode === "convert" && tool.target !== "image/png");
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
@@ -226,6 +240,27 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
       </div>
 
       <div className={cn(card, "space-y-5 self-start")}>
+        {hasTargetSize && (
+          <label className="block text-sm font-medium">
+            Target size (KB)
+            <input
+              type="number"
+              inputMode="numeric"
+              min={5}
+              max={20480}
+              value={targetKb || ""}
+              aria-label="Target file size in kilobytes"
+              onChange={(e) =>
+                setTargetKb(Math.min(20480, Math.max(0, Math.floor(+e.target.value || 0))))
+              }
+              className={cn(input, "mt-2")}
+            />
+            <span className="mt-1 block text-xs font-normal text-muted">
+              We find the best quality that stays at or under this size.
+            </span>
+          </label>
+        )}
+
         {tool.mode === "compress" && (
           <label className="block text-sm font-medium">
             Output format
@@ -343,8 +378,19 @@ export default function ImageTool({ tool }: { tool: Pick<Tool, "mode" | "target"
                 {saved > 0
                   ? `${saved}% smaller`
                   : tool.mode === "compress"
-                    ? "Result is larger than the original — lower the quality or keep the original"
+                    ? hasTargetSize
+                      ? "Your original is already close to or under the target size, so you can keep it"
+                      : "Result is larger than the original — lower the quality or keep the original"
                     : "No size reduction"}
+              </p>
+            )}
+            {hasTargetSize && result.reached === true && (
+              <p className="mt-2 font-semibold text-primary">Under {targetKb} KB ✓</p>
+            )}
+            {hasTargetSize && result.reached === false && (
+              <p className="mt-2 text-muted">
+                Could not reach {targetKb} KB without shrinking the image too much. This is the smallest
+                result we could make, so try a larger target size.
               </p>
             )}
           </div>

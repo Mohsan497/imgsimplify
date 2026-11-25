@@ -7,6 +7,7 @@ import Providers from "@/components/layout/Providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Analytics } from "@vercel/analytics/next";
+import GoogleAnalytics from "@/components/layout/GoogleAnalytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -70,6 +71,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <main>{children}</main>
           <Footer />
         </Providers>
+        <GoogleAnalytics />
         <Analytics />
       </body>
     </html>

@@ -4,6 +4,7 @@ import ToolsGrid from "@/components/home/ToolsGrid";
 import HowItWorks from "@/components/home/HowItWorks";
 import PrivacySection from "@/components/home/PrivacySection";
 import FaqSection from "@/components/home/FaqSection";
+import SizeToolsSection from "@/components/home/SizeToolsSection";
 import { GENERAL_FAQS } from "@/constants/faqs";
 import { FAQ_SECTION } from "@/constants/home";
 import { SITE } from "@/constants/site";
@@ -28,6 +29,15 @@ export default function HomePage() {
         name: SITE.name,
         url: SITE.url,
       },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE.url}#faq`,
+        mainEntity: GENERAL_FAQS.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      },
     ],
   };
 
@@ -35,6 +45,7 @@ export default function HomePage() {
     <>
       <Hero />
       <ToolsGrid />
+      <SizeToolsSection />
       <HowItWorks />
       <PrivacySection />
       <FaqSection

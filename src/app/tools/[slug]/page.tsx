@@ -62,6 +62,15 @@ export default function ToolPage({ params }: Props) {
           { "@type": "ListItem", position: 3, name: tool.title, item: url },
         ],
       },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        mainEntity: tool.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      },
     ],
   };
 
@@ -95,7 +104,7 @@ export default function ToolPage({ params }: Props) {
           </div>
         </header>
 
-        <ImageTool tool={{ mode: tool.mode, target: tool.target }} />
+        <ImageTool tool={{ mode: tool.mode, target: tool.target, targetKb: tool.targetKb }} />
       </Container>
 
       <section className="border-y border-border bg-surface py-14 sm:py-16">
@@ -137,6 +146,21 @@ export default function ToolPage({ params }: Props) {
           </div>
         </Container>
       </section>
+
+      {tool.sections && tool.sections.length > 0 && (
+        <Container className="max-w-3xl py-12 sm:py-16">
+          {tool.sections.map((section) => (
+            <section key={section.heading} className="mt-10 first:mt-0">
+              <h2 className="text-2xl font-extrabold tracking-tight">{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="mt-4 text-[17px] leading-8 text-foreground/80">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          ))}
+        </Container>
+      )}
 
       <FaqSection
         title={`Frequently Asked Questions about ${tool.title}`}

@@ -58,7 +58,7 @@ export const PRIVACY_PAGE: StaticPageContent = {
   metaTitle: "Privacy Policy – ImgSimplify",
   description:
     "Learn how ImgSimplify handles image files, website data, advertising and consent. Image processing happens locally in your browser.",
-  updated: "September 29, 2026",
+  updated: "November 24, 2026",
   intro:
     "ImgSimplify is designed so that the image-processing tools work locally in your browser. This policy explains what happens to your images and what website data may be involved.",
   sections: [
@@ -84,7 +84,7 @@ export const PRIVACY_PAGE: StaticPageContent = {
     },
     {
       heading: "Analytics",
-      body: "ImgSimplify does not currently require analytics for the image-processing tools. If analytics are added, this policy will be updated to describe the provider, the information collected and the available choices.",
+      body: "ImgSimplify uses analytics, such as Vercel Analytics and, when enabled, Google Analytics, to understand which pages are visited and how the site performs. These services may collect information such as pages viewed, device type, browser and approximate location, and Google Analytics may use cookies or similar identifiers. Your image files are never part of this data, because the image tools run entirely in your browser. You can limit analytics cookies through your browser settings or a content blocker.",
     },
     {
       heading: "Third-party services",
